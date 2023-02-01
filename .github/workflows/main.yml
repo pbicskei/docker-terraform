@@ -1,5 +1,8 @@
 name: Build and push Docker image
 
+env:
+  IMAGE_NAME: "{{ github.ownwer }}/terraform"
+
 on:
   pull_request:
     branches:
@@ -29,17 +32,12 @@ jobs:
       id: buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Set repository name
-      id: set-repo-name
-      run: |
-        echo "::set-env name=MODIFIED_REPO_NAME::${{ github.repository }/replace('docker-', '')}"
-
     - name: Docker meta
       id: tagging
       uses: docker/metadata-action@v4
       with:
         images: |
-          ${{ env.MODIFIED_REPO_NAME }}
+          ${{ env.IMAGE_NAME }}
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
