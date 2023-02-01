@@ -1,5 +1,8 @@
 name: Build and push Docker image
 
+env:
+  IMAGE_NAME: "{{ github.ownwer }}/terraform"
+
 on:
   pull_request:
     branches:
@@ -34,7 +37,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: |
-          ${{ github.repository }}
+          ${{ env.IMAGE_NAME }}
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
