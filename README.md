@@ -1,5 +1,7 @@
 # Terraform Docker Image
 
+[![Build and push Docker image](https://github.com/pbicskei/docker-terraform/actions/workflows/main.yml/badge.svg)](https://github.com/pbicskei/docker-terraform/actions/workflows/main.yml)
+
 A Docker image for Terraform that allows you to run Terraform commands within a container.
 
 ## Introduction
