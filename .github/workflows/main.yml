@@ -32,7 +32,7 @@ jobs:
     - name: Replace "docker-" with "" in repository name
       id: repo-name-replace
       run: |
-        IMAGE_NAME=$(echo "${{ env.GITHUB_REPOSITORY }}" | sed -e 's/docker-//')
+        IMAGE_NAME=$(echo "${{ github.repository }}" | sed -e 's/docker-//')
         echo "IMAGE_NAME=$IMAGE_NAME"
         env:
           IMAGE_NAME: ${{ steps.repo-name-replace.outputs.IMAGE_NAME }}
