@@ -1,7 +1,7 @@
 name: Build and push Docker image
 
 env:
-  IMAGE_NAME: "${{ github.ownwer }}/terraform"
+  IMAGE_NAME: "${{ github.owner }}/terraform"
 
 on:
   pull_request:
