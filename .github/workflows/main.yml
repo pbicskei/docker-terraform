@@ -29,20 +29,12 @@ jobs:
       id: buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Replace "docker-" with "" in repository name
-      id: repo-name-replace
-      run: |
-        IMAGE_NAME=$(echo "${{ github.repository }}" | sed -e 's/docker-//')
-        echo "IMAGE_NAME=$IMAGE_NAME"
-        env:
-          IMAGE_NAME: ${{ steps.repo-name-replace.outputs.IMAGE_NAME }}
-
     - name: Docker meta
       id: tagging
       uses: docker/metadata-action@v4
       with:
         images: |
-          ${{ env.IMAGE_NAME }}
+          ${{ replace(github.repository, "docker-", "")}}
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
