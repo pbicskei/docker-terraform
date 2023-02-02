@@ -1,6 +1,7 @@
 name: Build and push Docker images
 
 env:
+  IMAGE_NAMES: "${{ github.repository_owner }}/terraform", "${{ github.repository_owner }}/terraform-cloud"
   IMAGE_PLATFORM: linux/amd64,linux/arm64,linux/386,linux/arm/v7
 
 on:
@@ -42,7 +43,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: |
-          ${{ matrix.image }}
+          ${{ env.IMAGE_NAMES[job.index] }}
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
