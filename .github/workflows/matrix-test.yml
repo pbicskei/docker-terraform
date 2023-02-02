@@ -1,0 +1,28 @@
+name: My Workflow
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *'
+
+env:
+  VAR_A: valueA
+  VAR_B: valueB
+
+jobs:
+  my_job:
+    name: My Job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest]
+        feature: [enabled, disabled]
+    
+    steps:
+    - name: Show Configuration
+      run: |
+        echo "OS: ${{ matrix.os }}"
+        echo "Feature: ${{ matrix.feature }}"
+        echo "VAR_A: ${{ env.VAR_A }}"
+        echo "VAR_B: ${{ env.VAR_B }}"
