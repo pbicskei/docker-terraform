@@ -12,7 +12,6 @@ on:
   push:
     branches:
       - main
-      - develop
     tags:
       - v*
   create:
@@ -47,8 +46,8 @@ jobs:
       with:
         images: "${{ matrix.image }}"
         tags: |
-          type=branch,pattern=v${{ env.TAG_VERSION }}-{{ env.BRANCH_TAG_SUFFIX }},value={{ env.BRANCH_TAG }},enable=${{ env.TAG_ENABLED }}
-          type=branch,value={{ env.BRANCH_TAG }},enable=${{ env.BRANCH_TAG_ENABLED }}
+          type=raw,pattern=v${{ env.TAG_VERSION }}-{{ env.BRANCH_TAG_SUFFIX }},value={{ env.BRANCH_TAG }},enable=${{ env.TAG_ENABLED }}
+          type=raw,value={{ env.BRANCH_TAG }},enable=${{ env.BRANCH_TAG_ENABLED }}
           type=tag,value={{ env.TAG_NAME }},enable=${{ env.TAG_ENABLED }}
           type=sha
           type=date,pattern=v${{ env.TAG_VERSION }}-{{ env.DATE_TAG_SUFFIX }}-{{ env.DATE }},value={{ env.DATE_TAG }},enable=${{ env.DATE_TAG_ENABLED }}
