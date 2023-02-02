@@ -18,8 +18,8 @@ RUN case ${TARGETPLATFORM} in \
 # Add Terraform Cloud provider and CLI extension
 RUN terraform init -upgrade && \
     terraform provider install -install-provider-hash=3784fa8ed7fa6b0fc6c937af66fc3955a06d0a47 \
-    https://github.com/hashicorp/terraform-provider-tfe/releases/download/v1.0.0/terraform-provider-tfe_1.0.0_linux_amd64.zip
-RUN wget -q -O /bin/tfe https://github.com/hashicorp/tfe-cli/releases/download/v0.16.0/tfe-cli_0.16.0_linux_amd64 && \
+    https://github.com/hashicorp/terraform-provider-tfe/releases/download/v1.0.0/terraform-provider-tfe_1.0.0_linux_${TINI_ARCH}.zip
+RUN wget -q -O /bin/tfe https://github.com/hashicorp/tfe-cli/releases/download/v0.16.0/tfe-cli_0.16.0_linux_${TINI_ARCH} && \
     chmod +x /bin/tfe
 
 VOLUME ["/data"]
