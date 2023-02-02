@@ -2,7 +2,7 @@ name: My Workflow
 
 on:
   push:
-    branches: [develop]
+    branches: [feat/terraform-cloud]
   schedule:
     - cron: '0 0 * * *'
 
