@@ -1,7 +1,7 @@
 name: Build and push Docker images
 
 env:
-  IMAGE_NAMES: ["${{ github.repository_owner }}/terraform", "${{ github.repository_owner }}/terraform-cloud"]
+  IMAGE_NAMES: 
   IMAGE_PLATFORM: linux/amd64,linux/arm64,linux/386,linux/arm/v7
 
 on:
@@ -24,7 +24,8 @@ jobs:
 
     strategy:
       matrix:
-        image_name: ${{ env.IMAGE_NAMES }}
+        image_name: ["${{ github.repository_owner }}/terraform", "${{ github.repository_owner }}/terraform-cloud"]
+        dockerfile: ["Dockerfile", "Dockerfile.cloud"]
 
     steps:
     - name: Checkout code
@@ -42,7 +43,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: |
-          ${{ env.IMAGE_NAMES }}
+          ${{ matrix.image_name }}
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
@@ -61,8 +62,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: "${{ matrix.image_name == '${{ github.repository_owner }}/terraform' ? 'Dockerfile' : 'Dockerfile.cloud' }}"
-        platforms: ${{ env.IMAGE_PLATFORM }}
+        file: ${{ matrix.dockerfile }}
+        platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.tagging.outputs.tags }}
         labels: ${{ steps.tagging.outputs.labels }}
