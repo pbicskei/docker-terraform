@@ -48,7 +48,7 @@ jobs:
         images: "${{ matrix.image }}"
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-          type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'develop') }}
+          type=raw,value=develop,enable=${{ github.ref == format('refs/heads/{0}', 'develop') }}
           type=schedule
           type=schedule,pattern={{date 'YYYYMMDD'}}
           type=sha
