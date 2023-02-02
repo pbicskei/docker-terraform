@@ -46,7 +46,7 @@ jobs:
       with:
         context: .
         tags: ${{ env.DOCKER_ORG }}/${{ env.IMAGE_NAMES[matrix.image] }}:latest
-        dockerfile: ${{ env.IMAGE_NAMES[matrix.image] == 'terraform' ? 'Dockerfile' : 'Dockerfile.cloud' }}
+        dockerfile: "${{ env.IMAGE_NAMES[matrix.image] == 'terraform' ? 'Dockerfile' : 'Dockerfile.cloud' }}"
         build-args: |
           BUILD_DATE=${{ format('{0:yyyy-MM-dd}', steps.buildx.outputs.start-time) }}
         platforms: linux/arm64,linux/arm/v7,linux/amd64
