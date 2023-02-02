@@ -43,7 +43,7 @@ jobs:
       id: tagging
       uses: docker/metadata-action@v4
       with:
-        image: "${{ matrix.image }}"
+        images: "${{ matrix.image }}"
         tags: |
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
           type=ref,event=tag
